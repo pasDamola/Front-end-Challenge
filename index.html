@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Frontend Coding Challenge</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div id="app">
+            <section v-if="errored">
+                <p>We're sorry, we're not able to retrieve tweets at the moment, please try back later</p>
+            </section>
+            <section v-else>
+                <div class="row">&nbsp;</div>
+                <div v-if="loading">Loading...</div>
+                <div v-else>
+
+
+                    <div class="row">&nbsp;</div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+
+                        <div class="col-md-3" id="border">
+                            <h6 class="time">@makeschool</h6>
+                            <div class="row">&nbsp;</div>
+                            <div v-for="tweet in firstTweets">
+                                <span class="time">{{tweet.created_at | formatDate}}</span>
+                                <p>{{tweet.text | truncate}}</p>
+                                <hr>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <h6 class="time">@ycombinator</h6>
+                            <div class="row">&nbsp;</div>
+                            <div v-for="tweet in secondTweets">
+                                <span class="time">{{tweet.created_at | formatDate}}</span>
+                                <p>{{tweet.text | truncate}}</p>
+                                <p></p>
+                                <hr>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3" id="thirdTweets">
+                            <h6 class="time">@newsycombinator</h6>
+                            <div class="row">&nbsp;</div>
+                            <div v-for="tweet in thirdTweets">
+                                <span class="time">{{tweet.created_at | formatDate}}</span>
+                                <p>{{tweet.text | truncate}}</p>
+                                <hr>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3" id="formstuff">
+                            <form @submit.prevent="changeLayout">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Number of Tweets per column</label>
+                                    <input type="number" class="form-control" id="no" name="number" v-model="number">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default">Change</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/moment.js"></script>
+<script src="js/script.js"></script>
+
+</html>

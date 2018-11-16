@@ -1,0 +1,27 @@
+body{
+  background: #10171e;
+  color: #fff;
+  font-size: 14px;
+  line-height: 20px;
+  overflow-y: scroll;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+#menu{
+  float: right;
+}
+
+#border{
+  border-right: 1px solid #abb8c2;
+}
+
+#thirdTweets{
+  border-left: 1px solid #abb8c2;
+}
+.time {
+  color: #abb8c2;
+}
+
+#formstuff{
+  border-left: 1px solid #abb8c2;
+}
