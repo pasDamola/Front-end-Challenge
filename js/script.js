@@ -15,14 +15,47 @@ const app = new Vue({
             console.log({ background: this.background, number: this.number });
             localStorage.setItem('number', JSON.stringify(this.number));
             document.getElementById("no").value = "";
+            if (localStorage.getItem('number')) {
+                this.number = JSON.parse(localStorage.getItem('number'));
+            }
+            axios
+                .get(`http://localhost:7890/1.1/statuses/user_timeline.json?count=${this.number}&screen_name=makeschool`)
+                .then(response => {
+                    console.log(response.data)
+                    this.firstTweets = response.data
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.errored = true
+                })
+                .finally(() => this.loading = false);
+            axios
+                .get(`http://localhost:7890/1.1/statuses/user_timeline.json?count=${this.number}&screen_name=ycombinator`)
+                .then(response => {
+                    console.log(response.data)
+                    this.secondTweets = response.data
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.errored = true
+                })
+                .finally(() => this.loading = false);
+            axios
+                .get(`http://localhost:7890/1.1/statuses/user_timeline.json?count=${this.number}&screen_name=newsycombinator`)
+                .then(response => {
+                    console.log(response.data[0].entities.urls[0].url)
+                    this.thirdTweets = response.data
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.errored = true
+                })
+                .finally(() => this.loading = false)
         },
     },
     mounted() {
-        if (localStorage.getItem('number')) {
-            this.number = JSON.parse(localStorage.getItem('number'));
-        }
         axios
-            .get('http://localhost:7890/1.1/statuses/user_timeline.json?count=30&screen_name=makeschool')
+            .get(`http://localhost:7890/1.1/statuses/user_timeline.json?count=30&screen_name=makeschool`)
             .then(response => {
                 console.log(response.data)
                 this.firstTweets = response.data
@@ -33,7 +66,7 @@ const app = new Vue({
             })
             .finally(() => this.loading = false);
         axios
-            .get('http://localhost:7890/1.1/statuses/user_timeline.json?count=30&screen_name=ycombinator')
+            .get(`http://localhost:7890/1.1/statuses/user_timeline.json?count=30&screen_name=ycombinator`)
             .then(response => {
                 console.log(response.data)
                 this.secondTweets = response.data
@@ -44,7 +77,7 @@ const app = new Vue({
             })
             .finally(() => this.loading = false);
         axios
-            .get('http://localhost:7890/1.1/statuses/user_timeline.json?count=30&screen_name=newsycombinator')
+            .get(`http://localhost:7890/1.1/statuses/user_timeline.json?count=30&screen_name=newsycombinator`)
             .then(response => {
                 console.log(response.data[0].entities.urls[0].url)
                 this.thirdTweets = response.data
