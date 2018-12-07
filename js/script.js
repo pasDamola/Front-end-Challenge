@@ -21,6 +21,8 @@ const app = new Vue({
             axios
                 .get(`http://localhost:7890/1.1/statuses/user_timeline.json?count=${this.number}&screen_name=makeschool`)
                 .then(response => {
+                    NProgress.start()
+                    NProgress.inc()
                     console.log(response.data)
                     this.firstTweets = response.data
                 })
@@ -28,10 +30,12 @@ const app = new Vue({
                     console.log(error)
                     this.errored = true
                 })
-                .finally(() => this.loading = false);
+                .finally(() => NProgress.done());
             axios
                 .get(`http://localhost:7890/1.1/statuses/user_timeline.json?count=${this.number}&screen_name=ycombinator`)
                 .then(response => {
+                    NProgress.start()
+                    NProgress.inc()
                     console.log(response.data)
                     this.secondTweets = response.data
                 })
@@ -39,10 +43,12 @@ const app = new Vue({
                     console.log(error)
                     this.errored = true
                 })
-                .finally(() => this.loading = false);
+                .finally(() => NProgress.done());
             axios
                 .get(`http://localhost:7890/1.1/statuses/user_timeline.json?count=${this.number}&screen_name=newsycombinator`)
                 .then(response => {
+                    NProgress.start()
+                    NProgress.inc()
                     console.log(response.data[0].entities.urls[0].url)
                     this.thirdTweets = response.data
                 })
@@ -50,7 +56,7 @@ const app = new Vue({
                     console.log(error)
                     this.errored = true
                 })
-                .finally(() => this.loading = false)
+                .finally(() => NProgress.done())
         },
     },
     mounted() {
