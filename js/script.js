@@ -21,8 +21,8 @@ const app = new Vue({
             axios
                 .get(`http://localhost:7890/1.1/statuses/user_timeline.json?count=${this.number}&screen_name=makeschool`)
                 .then(response => {
+                    NProgress.configure({ easing: 'ease', speed: 2000 });
                     NProgress.start()
-                    NProgress.inc()
                     console.log(response.data)
                     this.firstTweets = response.data
                 })
@@ -34,8 +34,8 @@ const app = new Vue({
             axios
                 .get(`http://localhost:7890/1.1/statuses/user_timeline.json?count=${this.number}&screen_name=ycombinator`)
                 .then(response => {
+                    NProgress.configure({ easing: 'ease', speed: 2000 });
                     NProgress.start()
-                    NProgress.inc()
                     console.log(response.data)
                     this.secondTweets = response.data
                 })
@@ -47,8 +47,8 @@ const app = new Vue({
             axios
                 .get(`http://localhost:7890/1.1/statuses/user_timeline.json?count=${this.number}&screen_name=newsycombinator`)
                 .then(response => {
+                    NProgress.configure({ easing: 'ease', speed: 2000 });
                     NProgress.start()
-                    NProgress.inc()
                     console.log(response.data[0].entities.urls[0].url)
                     this.thirdTweets = response.data
                 })
